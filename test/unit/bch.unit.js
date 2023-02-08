@@ -56,7 +56,7 @@ describe('#BCH', () => {
       } catch (err) {
         assert.equal(
           err.message,
-          'Input must be a string containing bitcoincash address'
+          'addr parameter must be an array or a string'
         )
       }
     })
