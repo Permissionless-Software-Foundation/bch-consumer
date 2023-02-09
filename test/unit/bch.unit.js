@@ -63,7 +63,7 @@ describe('#BCH', () => {
   })
 
   describe('#getUtxos', () => {
-    it('should request utxos', async () => {
+    it('should request utxos for a single address', async () => {
       // Mock network
       sandbox.stub(uut.axios, 'post').resolves({ data: { key: 'value' } })
 
@@ -74,7 +74,7 @@ describe('#BCH', () => {
       assert.equal(result.key, 'value')
     })
 
-    it('should throw an error if input is not a string', async () => {
+    it('should throw an error if input is not a string or array', async () => {
       try {
         await uut.getUtxos(123)
 
@@ -82,9 +82,38 @@ describe('#BCH', () => {
       } catch (err) {
         assert.equal(
           err.message,
-          'Input must be a string containing bitcoincash address'
+          'addr parameter must be an array or a string'
         )
       }
+    })
+
+    it('should throw an error if input array has more than 20 elements', async () => {
+      try {
+        const addrs = []
+        for (let i = 0; i < 25; i++) {
+          addrs.push(i)
+        }
+
+        await uut.getUtxos(addrs)
+
+        assert.fail('Unexpected code path')
+      } catch (err) {
+        assert.equal(
+          err.message,
+          'addr parameter must not exceed 20 elements'
+        )
+      }
+    })
+
+    it('should request UTXOs for an array of addresses', async () => {
+      // Mock network
+      sandbox.stub(uut.axios, 'post').resolves({ data: { key: 'value' } })
+
+      const addrs = ['addr1', 'addr2']
+
+      const result = await uut.getUtxos(addrs)
+
+      assert.equal(result.key, 'value')
     })
   })
 

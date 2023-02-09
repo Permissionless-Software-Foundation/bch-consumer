@@ -31,7 +31,7 @@ describe('#bch.js', () => {
   })
 
   describe('#getUtxos', () => {
-    it('should get UTXOs for an address', async () => {
+    it('should get UTXOs for a single address', async () => {
       const addr = 'bitcoincash:qp3sn6vlwz28ntmf3wmyra7jqttfx7z6zgtkygjhc7'
 
       const result = await uut.getUtxos(addr)
@@ -39,6 +39,22 @@ describe('#bch.js', () => {
 
       assert.property(result[0], 'bchUtxos')
       assert.property(result[0], 'slpUtxos')
+    })
+
+    it('should get UTXOs for an array of address', async () => {
+      const addr = [
+        'bitcoincash:qp3sn6vlwz28ntmf3wmyra7jqttfx7z6zgtkygjhc7',
+        'bitcoincash:qpfu89emmh0mpkwfkyewtx28gyr2lgesxqmk6te0ha'
+      ]
+
+      const result = await uut.getUtxos(addr)
+      console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      // assert.property(result[0], 'bchUtxos')
+      // assert.property(result[0], 'slpUtxos')
+
+      assert.equal(result.data[0].address, addr[0])
+      assert.equal(result.data[1].address, addr[1])
     })
   })
 
@@ -99,7 +115,7 @@ describe('#bch.js', () => {
   describe('#utxoIsValid', () => {
     it('should return true for valid UTXO with fullnode properties', async () => {
       const utxo = {
-        txid: 'b94e1ff82eb5781f98296f0af2488ff06202f12ee92b0175963b8dba688d1b40',
+        txid: '18481843a36aa2f9b83560006e587cec24cdb617923b5bdcb77e1ff76fcfbc70',
         vout: 0
       }
 
@@ -114,7 +130,7 @@ describe('#bch.js', () => {
 
     it('should return true for valid UTXO with fulcrum properties', async () => {
       const utxo = {
-        tx_hash: 'b94e1ff82eb5781f98296f0af2488ff06202f12ee92b0175963b8dba688d1b40',
+        tx_hash: '18481843a36aa2f9b83560006e587cec24cdb617923b5bdcb77e1ff76fcfbc70',
         tx_pos: 0
       }
 
@@ -158,7 +174,7 @@ describe('#bch.js', () => {
     })
 
     it('should work with getUtxos()', async () => {
-      const addr = 'bitcoincash:qr4yscpw9jgq8ltajfeknpj32kamkf9knujffcdhyq'
+      const addr = 'bitcoincash:qpfu89emmh0mpkwfkyewtx28gyr2lgesxqmk6te0ha'
 
       const utxos = await uut.getUtxos(addr)
       // console.log(`utxos: ${JSON.stringify(utxos, null, 2)}`)
