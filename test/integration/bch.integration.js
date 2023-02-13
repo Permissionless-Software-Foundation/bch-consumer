@@ -4,7 +4,8 @@
 
 // Configure this constant for your use in the test.
 // const RESTURL = 'https://free-bch.fullstack.cash'
-const RESTURL = 'https://bc01-ca-bch-consumer.fullstackcash.nl'
+// const RESTURL = 'https://bc01-ca-bch-consumer.fullstackcash.nl'
+const RESTURL = 'https://bch-consumer-anacortes-wa-usa.fullstackcash.nl'
 // const RESTURL = 'http://localhost:5005'
 console.log(`Using this REST URL for integration tests: ${RESTURL}`)
 
@@ -17,7 +18,7 @@ const uut = new BCH({ restURL: RESTURL })
 
 describe('#bch.js', () => {
   describe('#getBalance', () => {
-    it('should get BCH balance for an address', async () => {
+    it('should get BCH balance for a single address', async () => {
       const addr = 'bitcoincash:qp3sn6vlwz28ntmf3wmyra7jqttfx7z6zgtkygjhc7'
 
       const result = await uut.getBalance(addr)
@@ -27,6 +28,25 @@ describe('#bch.js', () => {
 
       assert.property(result, 'balances')
       assert.property(result.balances[0].balance, 'confirmed')
+    })
+
+    it('should get BCH balance for an array of addresses', async () => {
+      const addr = [
+        'bitcoincash:qp3sn6vlwz28ntmf3wmyra7jqttfx7z6zgtkygjhc7',
+        'bitcoincash:qpfu89emmh0mpkwfkyewtx28gyr2lgesxqmk6te0ha'
+      ]
+
+      const result = await uut.getBalance(addr)
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.equal(result.success, true)
+
+      assert.property(result, 'balances')
+      assert.property(result.balances[0].balance, 'confirmed')
+
+      // Assert that addresses are included
+      assert.equal(result.balances[0].address, addr[0])
+      assert.equal(result.balances[1].address, addr[1])
     })
   })
 

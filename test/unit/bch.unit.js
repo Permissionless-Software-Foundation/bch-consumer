@@ -37,7 +37,7 @@ describe('#BCH', () => {
   })
 
   describe('#getBalance', () => {
-    it('should request a balance', async () => {
+    it('should request a balance for a single address', async () => {
       // Mock network
       sandbox.stub(uut.axios, 'post').resolves({ data: { key: 'value' } })
 
@@ -56,9 +56,20 @@ describe('#BCH', () => {
       } catch (err) {
         assert.equal(
           err.message,
-          'Input must be a string containing bitcoincash address'
+          'Input must be a string (address) or an array of strings'
         )
       }
+    })
+
+    it('should request a balance for an array of addresses', async () => {
+      // Mock network
+      sandbox.stub(uut.axios, 'post').resolves({ data: { key: 'value' } })
+
+      const addrs = ['testaddr1', 'testaddr2']
+
+      const result = await uut.getBalance(addrs)
+
+      assert.equal(result.key, 'value')
     })
   })
 
