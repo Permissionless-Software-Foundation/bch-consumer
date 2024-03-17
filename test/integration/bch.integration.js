@@ -68,7 +68,7 @@ describe('#bch.js', () => {
       ]
 
       const result = await uut.getUtxos(addr)
-      console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       // assert.property(result[0], 'bchUtxos')
       // assert.property(result[0], 'slpUtxos')
@@ -199,7 +199,7 @@ describe('#bch.js', () => {
       const utxos = await uut.getUtxos(addr)
       // console.log(`utxos: ${JSON.stringify(utxos, null, 2)}`)
 
-      const result = await uut.utxoIsValid(utxos[0].bchUtxos[0])
+      const result = await uut.utxoIsValid(utxos[0].infoUtxos[0])
 
       assert.equal(result.success, true)
       assert.equal(result.status, 200)
