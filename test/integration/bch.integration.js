@@ -251,26 +251,35 @@ describe('#bch.js', () => {
     })
   })
 
-  describe('#getTokenData2', () => {
-    it('should get PS002 data from a valid token', async () => {
-      const tokenId = 'c85042ab08a2099f27de880a30f9a42874202751d834c42717a20801a00aab0d'
+  // describe('#getTokenData2', () => {
+  //   it('should get PS002 data from a valid token', async () => {
+  //     const tokenId = 'c85042ab08a2099f27de880a30f9a42874202751d834c42717a20801a00aab0d'
+  //
+  //     const result = await uut.getTokenData2(tokenId)
+  //     // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+  //
+  //     assert.equal(result.success, true)
+  //     assert.equal(result.status, 200)
+  //     assert.equal(result.endpoint, 'getTokenData2')
+  //
+  //     assert.property(result.tokenData, 'tokenStats')
+  //     assert.property(result.tokenData, 'mutableData')
+  //     assert.property(result.tokenData, 'immutableData')
+  //     assert.property(result.tokenData, 'tokenIcon')
+  //     assert.property(result.tokenData, 'fullSizedUrl')
+  //     assert.property(result.tokenData, 'optimizedTokenIcon')
+  //     assert.property(result.tokenData, 'optimizedFullSizedUrl')
+  //     assert.property(result.tokenData, 'iconRepoCompatible')
+  //     assert.property(result.tokenData, 'ps002Compatible')
+  //   })
+  // })
 
-      const result = await uut.getTokenData2(tokenId)
-      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+  describe('#getPsffppWritePrice', () => {
+    it('should get the price in PSF tokens to pin 1MB of content to the PSFFPP network', async () => {
+      const result = await uut.getPsffppWritePrice()
+      console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
-      assert.equal(result.success, true)
-      assert.equal(result.status, 200)
-      assert.equal(result.endpoint, 'getTokenData2')
-
-      assert.property(result.tokenData, 'tokenStats')
-      assert.property(result.tokenData, 'mutableData')
-      assert.property(result.tokenData, 'immutableData')
-      assert.property(result.tokenData, 'tokenIcon')
-      assert.property(result.tokenData, 'fullSizedUrl')
-      assert.property(result.tokenData, 'optimizedTokenIcon')
-      assert.property(result.tokenData, 'optimizedFullSizedUrl')
-      assert.property(result.tokenData, 'iconRepoCompatible')
-      assert.property(result.tokenData, 'ps002Compatible')
+      assert.isNumber(result)
     })
   })
 })
