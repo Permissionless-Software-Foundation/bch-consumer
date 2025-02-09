@@ -5,7 +5,8 @@
 // Configure this constant for your use in the test.
 // const RESTURL = 'https://free-bch.fullstack.cash'
 // const RESTURL = 'https://bc01-ca-bch-consumer.fullstackcash.nl'
-const RESTURL = 'https://bch-consumer-anacortes-wa-usa.fullstackcash.nl'
+// const RESTURL = 'https://bch-consumer-anacortes-wa-usa.fullstackcash.nl'
+const RESTURL = 'https://dev-consumer.psfoundation.info'
 // const RESTURL = 'http://localhost:5005'
 console.log(`Using this REST URL for integration tests: ${RESTURL}`)
 
@@ -280,6 +281,29 @@ describe('#bch.js', () => {
       console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isNumber(result)
+    })
+  })
+
+  describe('#cid2json', () => {
+    it('should convert a CID to a JSON object', async () => {
+      const cid = 'bafkreigbgrvpagnmrqz2vhofifrqobigsxkdvnvikf5iqrkrbwrzirazhm'
+
+      const result = await uut.cid2json({ cid })
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.equal(result.success, true)
+      assert.property(result, 'json')
+    })
+
+    it('should throw an error if no CID is provided', async () => {
+      try {
+        await uut.cid2json()
+        // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+        assert.fail('Expected an error to be thrown')
+      } catch (err) {
+        assert.equal(err.message, 'cid is required')
+      }
     })
   })
 })

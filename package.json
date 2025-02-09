@@ -1,6 +1,6 @@
 {
   "name": "bch-consumer",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "A npm JS library for interacting with ipfs-bch-wallet-consumer REST API",
   "main": "index.js",
   "scripts": {
