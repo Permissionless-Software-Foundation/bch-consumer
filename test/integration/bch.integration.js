@@ -283,4 +283,27 @@ describe('#bch.js', () => {
       assert.isNumber(result)
     })
   })
+
+  describe('#cid2json', () => {
+    it('should convert a CID to a JSON object', async () => {
+      const cid = 'bafkreigbgrvpagnmrqz2vhofifrqobigsxkdvnvikf5iqrkrbwrzirazhm'
+
+      const result = await uut.cid2json({ cid })
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.equal(result.success, true)
+      assert.property(result, 'json')
+    })
+
+    it('should throw an error if no CID is provided', async () => {
+      try {
+        await uut.cid2json()
+        // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+        assert.fail('Expected an error to be thrown')
+      } catch (err) {
+        assert.equal(err.message, 'cid is required')
+      }
+    })
+  })
 })
