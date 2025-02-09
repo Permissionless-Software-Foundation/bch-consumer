@@ -108,4 +108,3 @@ console.log('result: ', result)
 
 [MIT](LICENSE.md)
 
-test
