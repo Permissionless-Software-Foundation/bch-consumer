@@ -6,8 +6,8 @@
 // const RESTURL = 'https://free-bch.fullstack.cash'
 // const RESTURL = 'https://bc01-ca-bch-consumer.fullstackcash.nl'
 // const RESTURL = 'https://bch-consumer-anacortes-wa-usa.fullstackcash.nl'
-const RESTURL = 'https://dev-consumer.psfoundation.info'
-// const RESTURL = 'http://localhost:5005'
+// const RESTURL = 'https://dev-consumer.psfoundation.info'
+const RESTURL = 'http://localhost:5015'
 console.log(`Using this REST URL for integration tests: ${RESTURL}`)
 
 // npm libraries
